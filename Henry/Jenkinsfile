@@ -4,9 +4,6 @@ pipeline {
         registryCredentials = 'DOCKERHUB-ACCESS-TOKEN'
     }
     agent any
-    triggers{
-        pollSCM('* * * * *')
-    }
     stages {
         stage('Cloning our github repository') {
             steps {
@@ -15,7 +12,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                sh 'docker build -t app-py-image . '
+                sh 'cd Henry && docker build -t app-py-image . '
             }
         }
         stage('Tagging docker image') {
@@ -34,5 +31,14 @@ pipeline {
             }
         }
     }
+        post {
+            success {
+                slackSend channel: 'jenkins', message: "Build deployed successfully - $JOB_NAME $BUILD_NUMBER $BUILD_URL"
+            }
+            failure {
+                slackSend channel: 'jenkins', failOnError:true, message: "Build failed  - $JOB_NAME $BUILD_NUMBER $BUILD_URL"
+            }
+        }
     
 }
+
