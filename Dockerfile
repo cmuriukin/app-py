@@ -43,5 +43,4 @@ COPY --from=builder /code /code/
 EXPOSE 5000
 #COPY . .
 CMD ["flask", "run"]
-###Activated POLLSCM
-##
+###Activated POLLSCM using jenkins
