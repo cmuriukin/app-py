@@ -1,0 +1,43 @@
+pipeline {
+    environment {
+    registry = 'kamraanmohammed/docker-jenkins'
+    registryCredential = 'DOCKERHUB-ACCESS-TOKEN'
+    }
+    agent any
+    triggers {
+        pollSCM('H/3 * * * *')
+    }
+    stages {
+        stage('Cloning Our Github Repository') {
+            steps {
+                git credentialsId: 'GITHUB-ACCESS-TOKEN', url: 'https://github.com/KamraanMohammed/app-py.git', branch: 'main'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t app-py-image .'
+            }
+        }
+        stage('Tag the docker image') {
+            steps {
+                sh 'docker tag app-py-image:latest kamraanmohammed/docker-jenkins:$BUILD_NUMBER '
+                sh 'docker tag app-py-image:latest kamraanmohammed/docker-jenkins:latest '
+            }
+        }
+        stage('Push Image to Docker Repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB-ACCESS-TOKEN', passwordVariable: 'DKR_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]){
+                    sh "echo $DKR_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
+                    sh 'docker push $registry:$BUILD_NUMBER'
+                    sh 'docker push $registry:latest'
+                }
+            }
+        }
+        
+        }
+    post {
+        always {
+            slackSend channel: 'notifications', message: "Your pipeline $JOB_NAME 's Build number $BUILD_NUMBER was a $currentBuild.result . Refer to this link for more details: $BUILD_URL"
+        }
+    }
+}
