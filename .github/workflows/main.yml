@@ -8,6 +8,9 @@ jobs:
   build:
     name: Sonarqube Scanner
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [ 3.7, 3.8, 3.9, 3.10 ]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,14 +20,15 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install tox and any other packages
-        run: pip install tox
+        run: pip install -r requirements.txt
       - name: Run tox
         run: tox -e py
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
       - name: Run Scanner
-        run: sonar-scanner 
+        run: sonar-scanner
            -Dsonar.projectKey=python-project 
            -Dsonar.sources=$GITHUB_WORKSPACE 
            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} 
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.python.coverage.reportPaths=coverage.xml
