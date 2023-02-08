@@ -25,8 +25,8 @@ jobs:
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Scan App
-        run: sh 'sonar-scanner \
-          -Dsonar.projectKey=python-project \
-          -Dsonar.sources=. \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}'
+        run: sonar-scanner \
+                -Dsonar.projectKey=python-project \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+                -Dsonar.login=${{ secrets.SONAR_TOKEN }}'
