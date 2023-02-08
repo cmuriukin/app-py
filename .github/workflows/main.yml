@@ -24,6 +24,10 @@ jobs:
       #   timeout-minutes: 5
       #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  sonarqube:
+      name: Sonarqube
+      runs-on: ubuntu-latest
+      steps:
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
       - name: Run Scanner
