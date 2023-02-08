@@ -36,6 +36,7 @@ jobs:
   Post-to-slack:
     name: posting to slack
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     needs: [GitHub-to-Docker]
     steps:
       - name: Post to a Slack channel
