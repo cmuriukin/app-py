@@ -1,0 +1,32 @@
+on:
+  push
+  
+jobs:
+  GitHub-to-Docker:
+    name: GitHub Checkout
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Check out code
+      
+      - name: build docker image
+        run: docker build -t app-py-image .
+        
+      - name: tag docker image to build number
+        run: docker tag app-py-image:latest ${{ secrets.DOCKER_REPO }}:${{ github.run_number }}
+        
+      - name: tag docker image to latest
+        run: docker tag app-py-image:latest ${{ secrets.DOCKER_REPO }}:latest
+        
+      - name: login to docker hub
+        run: docker login -u ${{ DOCKER_USERNAME }} -p ${{ DOCKER_PASSWORD }}
+        
+      - name: push docker image with build number
+        run: docker push ${{ secrets.DOCKER_REPO }}:${{ github.run_number }}
+        
+      - name: push docker image with latest tag
+        run: docker push ${{ secrets.DOCKER_REPO }}:latest
+        
+        
+      
