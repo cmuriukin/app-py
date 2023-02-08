@@ -28,7 +28,7 @@ jobs:
         uses: warchant/setup-sonar-scanner@v3
       - name: Run Scanner
         run: sonar-scanner \
-                -Dsonar.projectKey=python-project \
-                -Dsonar.sources=. \
-                -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-                -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+              -Dsonar.projectKey=python-project \
+              -Dsonar.sources=. \
+              -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
