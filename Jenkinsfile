@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                sh 'cd Henry && docker build -t app-py-image . '
+                sh 'docker build -t app-py-image .'
             }
         }
         stage('Tagging docker image') {
