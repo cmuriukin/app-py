@@ -23,7 +23,7 @@ jobs:
         
    
       - name: login to docker hub
-        run: docker login -u ${{ DOCKER_USERNAME }} -p ${{ DOCKER_PASSWORD }}
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
     
       - name: push docker image with build number
