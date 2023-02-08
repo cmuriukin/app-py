@@ -29,4 +29,4 @@ jobs:
                 -Dsonar.projectKey=python-project \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-                -Dsonar.login=${{ secrets.SONAR_TOKEN }}'
+                -Dsonar.login=${{ secrets.SONAR_TOKEN }}
