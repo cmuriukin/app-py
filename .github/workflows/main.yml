@@ -27,6 +27,7 @@ jobs:
   sonarqube:
       name: Sonarqube
       runs-on: ubuntu-latest
+      needs: build
       steps:
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
