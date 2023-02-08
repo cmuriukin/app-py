@@ -15,18 +15,23 @@ jobs:
       - name: build docker image
         run: docker build -t app-py-image .
         
+      - uses: actions/checkout@v3.3.0
       - name: tag docker image to build number
         run: docker tag app-py-image:latest ${{ secrets.DOCKER_REPO }}:${{ github.run_number }}
         
+      - uses: actions/checkout@v3.3.0
       - name: tag docker image to latest
         run: docker tag app-py-image:latest ${{ secrets.DOCKER_REPO }}:latest
         
+      - uses: actions/checkout@v3.3.0
       - name: login to docker hub
         run: docker login -u ${{ DOCKER_USERNAME }} -p ${{ DOCKER_PASSWORD }}
-        
+      
+      - uses: actions/checkout@v3.3.0  
       - name: push docker image with build number
         run: docker push ${{ secrets.DOCKER_REPO }}:${{ github.run_number }}
-        
+       
+      - uses: actions/checkout@v3.3.0
       - name: push docker image with latest tag
         run: docker push ${{ secrets.DOCKER_REPO }}:latest
         
