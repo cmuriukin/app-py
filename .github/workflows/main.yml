@@ -33,11 +33,11 @@ jobs:
       - name: push docker image with latest tag
         run: docker push ${{ secrets.DOCKER_REPO }}:latest
         
-      - name: Slack-Send
-        uses: actions/checkout@v3.3.0
-        with:
-          channel-id: notifications
-          
+  Post-to-slack:
+    name: posting to slack
+    runs-on: ubuntu-latest
+    needs: [GitHub-to-Docker]
+    steps:
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
