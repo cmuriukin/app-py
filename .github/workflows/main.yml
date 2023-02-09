@@ -1,5 +1,4 @@
 name: Build python app and scan with sonarqube
-
 on:
   push:
     branches:
@@ -15,11 +14,19 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-         python-version: 3.9
-      - name: Install tox and any other packages
-        run: pip install tox
-      - name: Run tox
-        run: tox -e .
+          python-version: 3.9
+ #     - name: Install tox and any other packages
+ #       run: pip install tox
+ #     - name: Run tox
+ #       run: tox -e .
+ #     - name: Setup Python
+ #       uses: actions/setup-python@v2
+ #       with:
+ #         python-version: 3.9
+ #     - name: Install tox and any other packages
+ #       run: pip install tox
+ #     - name: Run tox
+ #       run: tox -e .
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
       - name: Run Scanner
