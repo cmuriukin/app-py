@@ -27,7 +27,7 @@ jobs:
       
     
       - name: push docker image with build number
-        run: docker push ${{ secrets.DOCKER_REP30O }}:${{ github.run_number }}
+        run: docker push ${{ secrets.DOCKER_REPO }}:${{ github.run_number }}
        
     
       - name: push docker image with latest tag
