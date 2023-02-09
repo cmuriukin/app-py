@@ -24,4 +24,4 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         uses: sonarsource/sonarqube-quality-gate-action@master
         with:
-          scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+          scanMetadataReportFile: .scannerwork/report-task.txt
